@@ -1,0 +1,131 @@
+<!-- courses/templates/courses/login.html -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background-color: #ffffff; /* Белый фон */
+        }
+
+        .login-container {
+            width: 400px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 2;
+        }
+
+        .login-container h1 {
+            margin-bottom: 20px;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-primary {
+            background-color: #191970; /* Темно-синий цвет */
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #6a11cb; /* Цвет кнопки при наведении */
+        }
+
+        /* Круговые блики */
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(25, 25, 112, 0.4), rgba(25, 25, 112, 0) 70%); /* Темно-синий цвет с меньшей яркостью */
+            opacity: 0; /* Начальная прозрачность */
+            animation: appear 12s ease-in-out infinite, move 15s linear infinite; /* Медленная анимация появления и движения */
+            z-index: 0;
+        }
+
+        @keyframes appear {
+            0% {
+                opacity: 0; /* Исчезает в начале */
+                transform: scale(1.5); /* Увеличение */
+            }
+            20% {
+                opacity: 1; /* Полная непрозрачность */
+                transform: scale(1.5); /* Увеличение */
+            }
+            80% {
+                opacity: 1; /* Полная непрозрачность */
+                transform: scale(1.5); /* Увеличение */
+            }
+            100% {
+                opacity: 0; /* Исчезает в конце */
+                transform: scale(1.5); /* Увеличение */
+            }
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(0, 0); /* Начальная позиция */
+            }
+            25% {
+                transform: translate(-30px, 0); /* Движение влево */
+            }
+            50% {
+                transform: translate(30px, 0); /* Движение вправо */
+            }
+            75% {
+                transform: translate(-30px, 0); /* Движение влево */
+            }
+            100% {
+                transform: translate(0, 0); /* Возврат в начальную позицию */
+            }
+        }
+
+        /* Размеры и позиции кругов */
+        .glow:nth-child(1) { width: 800px; height: 800px; top: -300px; left: -300px; animation-delay: 0s; } /* Верхний левый блик */
+        .glow:nth-child(2) { width: 800px; height: 800px; bottom: -300px; right: -300px; animation-delay: 6s; } /* Нижний правый блик */
+    </style>
+</head>
+<body>
+    <div class="glow"></div> <!-- Круговой блик 1 (верхний левый) -->
+    <div class="glow"></div> <!-- Круговой блик 2 (нижний правый) -->
+
+    <div class="login-container">
+        <h1>LOGIN</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+    </div>
+</body>
+</html>

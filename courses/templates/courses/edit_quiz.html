@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать тест</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'stylescourse.css' %}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #243444, #a3bcdc); /* Градиент фон */
+            animation: gradient 15s ease infinite; /* Убрано анимированное изменение */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2F4F4F;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        h4 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #0000CD;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #243444;
+            transform: scale(1.05);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left; /* Выравнивание текста в формах */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Редактировать тест</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ question_form.as_p }}
+            </div>
+            {{ formset.management_form }}
+            <h4>Варианты ответов:</h4>
+            {% for form in formset %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+            <button type="submit" style="background-color: #243444">Сохранить</button>
+        </form>
+    </div>
+</body>
+</html>
